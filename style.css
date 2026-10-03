@@ -1,18 +1,93 @@
+/* General Layout */
 body {
-  margin:0; font-family:Arial; background:#000; color:#fff;
-  display:flex; justify-content:center; align-items:center; height:100vh;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  overflow-x: hidden;
 }
-.login-card, .quiz-container {
-  background:#1e3c72; padding:20px; border-radius:10px; text-align:center;
-  box-shadow:0 10px 20px rgba(0,0,0,0.5);
+
+/* Quiz Container */
+.quiz-container {
+  width: 80%;
+  max-width: 700px;
+  margin: 60px auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 200, 255, 0.4);
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  transform: perspective(800px) rotateX(5deg);
 }
-.btn { margin:10px; padding:10px 20px; background:#ff9800; border:none; border-radius:5px; cursor:pointer; }
-.btn:hover { transform:scale(1.1); }
-.link { color:#ff9800; cursor:pointer; }
-.card { background:#fff; color:#000; padding:20px; border-radius:10px; margin:10px; }
-.option { display:block; margin:10px auto; padding:10px; background:#2a5298; color:#fff; border-radius:5px; cursor:pointer; }
-.option.correct { background:green; }
-.option.wrong { background:red; }
-.timer, .score-board { margin-top:10px; }
-.quiz-card { background:#2a5298; margin:10px; padding:15px; border-radius:10px; cursor:pointer; }
-.quiz-card:hover { background:#1e3c72; transform:scale(1.05); }
+
+/* Heading */
+.quiz-container h1 {
+  text-align: center;
+  font-size: 2em;
+  color: #00eaff;
+  text-shadow: 0 0 10px #00eaff;
+}
+
+/* Question */
+.question {
+  font-size: 1.3em;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option {
+  background: rgba(0, 200, 255, 0.2);
+  border: 2px solid #00eaff;
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.option:hover {
+  background: #00eaff;
+  color: #000;
+  transform: scale(1.05) rotateY(5deg);
+}
+
+/* Timer and Score */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 1.1em;
+}
+
+.timer, .score {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 200, 255, 0.5);
+}
+
+/* Submit Button */
+.submit-btn {
+  display: block;
+  margin: 30px auto 0;
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background: #ffc107;
+  transform: scale(1.1);
+}
