@@ -1,148 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <style>
-   body {
-       font-family: 'Segoe UI', Arial, sans-serif;
-       background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-       display: flex;
-       justify-content: center;
-       align-items: center;
-       height: 100vh;
-       margin: 0;
-     }
-     .login-box {
-       background: #fff;
-       padding: 40px;
-       border-radius: 12px;
-       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-       width: 100%;
-       max-width: 400px;
-       animation: fadeIn 1s ease-in-out;
-     }
-     .login-box h2 {
-       text-align: center;
-       margin-bottom: 20px;
-       font-size: 2rem;
-       color: #333;
-     }
-     label {
-       font-weight: bold;
-       display: block;
-       margin-top: 10px;
-       text-align: left;
-     }
-     input {
-       width: 100%;
-       padding: 10px;
-       margin: 8px 0;
-       border-radius: 8px;
-       border: 1px solid #ccc;
-       font-size: 1rem;
-       transition: border 0.3s ease;
-     }
-     input:focus {
-       border: 1px solid #2065ce;
-       outline: none;
-     }
-     input[type="submit"] {
-       background: #2065ce;
-       color: #fff;
-       border: none;
-       cursor: pointer;
-       font-size: 1rem;
-       font-weight: bold;
-       transition: background 0.3s ease;
-     }
-     input[type="submit"]:hover {
-       background: #164a9c;
-     }
-     .error {
-       color: #e74c3c;
-       font-size: 14px;
-       margin-top: 10px;
-       text-align: center;
-     }
-     @keyframes fadeIn {
-       from {opacity: 0; transform: translateY(20px);}
-       to {opacity: 1; transform: translateY(0);}
-     }
-  </style>
+  <meta charset="UTF-8">
+  <title>Study Zone Quiz System</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Register -->
+  <div id="register-container" class="login-card">
+    <h1 class="title">Register</h1>
+    <input type="text" id="reg-username" placeholder="Enter name">
+    <input type="password" id="reg-password" placeholder="Enter password">
+    <button id="register-btn" class="btn">Register</button>
+    <p>Already have an account? <span id="go-login" class="link">Login</span></p>
+  </div>
 
-<div class="login-box">
-   <!-- ✅ Logo added -->
-  <img src="studyzone-logo.png" alt="Study Zone Logo" style="width:300px; display:block; margin:0 auto;">
-  <h2><span class="key-symbol">🔑</span>Login</h2>
-  <!-- ✅ form tag सही किया -->
-  <form onsubmit="return redirectToWelcome()">
-     <label><b>Name:</b></label>
-    <input type="text" id="name" placeholder="Enter Your Name">
+  <!-- Login -->
+  <div id="login-container" class="login-card" style="display:none;">
+    <h1 class="title">Login</h1>
+    <input type="text" id="username" placeholder="Enter name">
+    <input type="password" id="password" placeholder="Enter password">
+    <button id="login-btn" class="btn">Login</button>
+    <p>New user? <span id="go-register" class="link">Register</span></p>
+  </div>
 
-    <label><b>User ID:</b></label>
-    <input type="text" id="userid" oninput="clearError(this)" placeholder="Enter User ID">
+  <!-- Quiz Selection -->
+  <div id="quiz-selection" class="quiz-container" style="display:none;">
+    <h1 class="title">Available Quizzes</h1>
+    <div id="quiz-list"></div>
+  </div>
 
-    <label><b>Password:</b></label>
-    <input type="password" id="password" oninput="clearError(this)" placeholder="Enter Password">
+  <!-- Quiz Page -->
+  <div id="quiz-container" class="quiz-container" style="display:none;">
+    <h1 class="title">Welcome, <span id="user-name"></span>!</h1>
+    <div id="question-box" class="card"></div>
+    <div id="options-box"></div>
+    <div id="timer" class="timer"></div>
+    <div id="score-board" class="score-board">Score: 0</div>
+    <button id="next-btn" class="btn">Next</button>
+  </div>
 
-    <input type="submit" value="Login">
+  <!-- Leaderboard -->
+  <div id="leaderboard-container" class="login-card" style="display:none;">
+    <h1 class="title">Leaderboard</h1>
+    <ul id="leaderboard-list"></ul>
+    <button id="back-to-login" class="btn">Back</button>
+  </div>
 
-    <div id="errorMsg" class="error"></div>
-  </form>
-</div>
+  <!-- Admin Panel -->
+  <div id="admin-container" class="login-card" style="display:none;">
+    <h1 class="title">Admin Panel</h1>
+    <h2>Add Quiz</h2>
+    <input type="text" id="new-quiz-name" placeholder="Quiz Name">
+    <input type="text" id="quiz-start" placeholder="Start (YYYY-MM-DDTHH:mm:ss)">
+    <input type="text" id="quiz-end" placeholder="End (YYYY-MM-DDTHH:mm:ss)">
+    <input type="number" id="quiz-duration" placeholder="Duration (minutes)">
+    <button id="add-quiz-btn" class="btn">Add Quiz</button>
 
-<script>
- function redirectToWelcome() {
-  let nameInput = document.getElementById("name");
-  let userInput = document.getElementById("userid");
-  let passInput = document.getElementById("password");
-  let errorMsg = document.getElementById("errorMsg");
+    <h2>Add Question</h2>
+    <select id="quiz-select"></select>
+    <input type="text" id="new-question" placeholder="Question">
+    <input type="text" id="option1" placeholder="Option 1">
+    <input type="text" id="option2" placeholder="Option 2">
+    <input type="text" id="option3" placeholder="Option 3">
+    <input type="text" id="option4" placeholder="Option 4">
+    <input type="text" id="correct-answer" placeholder="Correct Answer">
+    <button id="add-question-btn" class="btn">Add Question</button>
 
-  let name = nameInput.value;
-  let user = userInput.value;
-  let pass = passInput.value;
+    <h2>Manage</h2>
+    <button id="delete-quiz-btn" class="btn">Delete Quiz</button>
+    <button id="view-answer-key" class="btn">Answer Key</button>
+    <button id="view-results" class="btn">Results</button>
+    <button id="enable-practice" class="btn">Toggle Practice Mode</button>
+    <button id="logout-admin" class="btn">Logout</button>
+    <div id="admin-output"></div>
+  </div>
 
-  let users = [
-    {id: "Aayush", pass: "12345"},
-    {id: "Bambam", pass: "12345"},
-    {id: "Pritam", pass: "12345"},
-    {id: "Shubham", pass: "7575"}
-  ];
-
-  // Reset styles
-  userInput.classList.remove("input-error");
-  passInput.classList.remove("input-error");
-  errorMsg.innerHTML = "";
-
-  // Blank check
-  if (name.trim() === "" || user.trim() === "" || pass.trim() === "") {
-    errorMsg.innerHTML = "❌ Name, User ID aur Password blank nahi hone chahiye!";
-    return false;
-  }
-
-  let foundUser = users.find(u => u.id === user);
-
-  if (!foundUser) {
-    errorMsg.innerHTML = "❌ User ID galat hai!";
-    userInput.classList.add("input-error");
-    return false;
-  } else if (foundUser.pass !== pass) {
-    errorMsg.innerHTML = "❌ Password galat hai!";
-    passInput.classList.add("input-error");
-    return false;
-  } else {
-    // ✅ Save Name in localStorage
-    localStorage.setItem("loggedName", name);
-    window.location.href = "welcome.html";
-    return false;
-  }
-}
-
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
