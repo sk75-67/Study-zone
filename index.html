@@ -1,81 +1,458 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
+
 <head>
   <meta charset="UTF-8">
-  <title>Study Zone Quiz System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Quiz System</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- Register -->
-  <div id="register-container" class="login-card">
-    <h1 class="title">Register</h1>
-    <input type="text" id="reg-username" placeholder="Enter name">
-    <input type="password" id="reg-password" placeholder="Enter password">
-    <button id="register-btn" class="btn">Register</button>
-    <p>Already have an account? <span id="go-login" class="link">Login</span></p>
+
+  <!-- ================================================= -->
+  <!-- 🔐 LOGIN -->
+  <!-- ================================================= -->
+
+  <div id="loginBox" class="login-container">
+
+    <div class="login-icon hans-sitar">
+      <span class="hans-right">🦢</span>
+    </div>
+
+    <h2>जय माँ सरस्वती</h2>
+
+    <p class="login-subtitle">
+      Class 1st to 12th
+    </p>
+
+    <input
+      id="code"
+      type="text"
+      placeholder="Student Code (e.g. XYZ111 or ADMIN)"
+      autocomplete="off"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      autocomplete="off"
+    >
+
+    <button
+      id="loginBtn"
+      type="button">
+      🔐 Login
+    </button>
+
   </div>
 
-  <!-- Login -->
-  <div id="login-container" class="login-card" style="display:none;">
-    <h1 class="title">Login</h1>
-    <input type="text" id="username" placeholder="Enter name">
-    <input type="password" id="password" placeholder="Enter password">
-    <button id="login-btn" class="btn">Login</button>
-    <p>New user? <span id="go-register" class="link">Register</span></p>
+
+  <!-- ================================================= -->
+  <!-- 🧠 MAIN AREA -->
+  <!-- ================================================= -->
+
+  <div id="quizArea" class="hidden">
+
+    <!-- ================================================= -->
+    <!-- 👤 TOP BAR -->
+    <!-- ================================================= -->
+
+    <div class="top-bar">
+
+      <div>
+        <h2 id="studentName">
+          Welcome
+        </h2>
+      </div>
+
+      <button
+        id="logoutBtn"
+        class="logout-btn"
+        type="button">
+        🚪 Logout
+      </button>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- 👨🎓 STUDENT AREA (CLEAN ACCORDION FOLDERS FOR QUIZZES) -->
+    <!-- ================================================= -->
+
+    <div id="studentSection">
+
+      <div id="studentSectionMainTitle" class="section-title">
+        📱 Quiz Categories (क्विज़ सेक्शन्स)
+      </div>
+
+      <!-- Clean Folders Container (Auto-Expand on Click) -->
+      <div id="studentQuizFoldersContainer">
+        <p>Loading Quiz Folders...</p>
+      </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- 📝 CURRENT QUIZ (AUTO SCROLL DESTINATION) -->
+    <!-- ================================================= -->
+
+    <div id="quiz"></div>
+
+
+    <!-- ================================================= -->
+    <!-- 👥 MEMBERS -->
+    <!-- ================================================= -->
+
+    <div
+      id="memberCount"
+      class="member-count">
+
+      Live Members: 0
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- 🏆 RESULTS -->
+    <!-- ================================================= -->
+
+    <div
+      id="results"
+      class="results-box">
+
+      <div class="results-header-flex">
+        <h3>
+          🏆 Live Quiz Results
+        </h3>
+
+        <div class="class-filter-box">
+          <label for="resultClassFilter">🏫 Filter Class:</label>
+          <select id="resultClassFilter">
+            <option value="ALL">All Classes</option>
+            <option value="Class 1st">Class 1st</option>
+            <option value="Class 2nd">Class 2nd</option>
+            <option value="Class 3rd">Class 3rd</option>
+            <option value="Class 4th">Class 4th</option>
+            <option value="Class 5th">Class 5th</option>
+            <option value="Class 6th">Class 6th</option>
+            <option value="Class 7th">Class 7th</option>
+            <option value="Class 8th">Class 8th</option>
+            <option value="Class 9th">Class 9th</option>
+            <option value="Class 10th">Class 10th</option>
+            <option value="Class 11th">Class 11th</option>
+            <option value="Class 12th">Class 12th</option>
+          </select>
+        </div>
+      </div>
+
+      <p>
+        Quiz select करने के बाद result यहाँ दिखाई देगा।
+      </p>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- 👨💼 ADMIN PANEL -->
+    <!-- ================================================= -->
+
+    <div
+      id="adminPanel"
+      class="admin-panel hidden">
+
+      <!-- ================================================= -->
+      <!-- 🤖 AI QUIZ GENERATOR -->
+      <!-- ================================================= -->
+      <div class="admin-card ai-generator-card">
+        <h3>✨ 🤖 AI Quiz Generator (Gemini AI)</h3>
+        <p class="card-desc">Topic prompt लिखकर या कई Photos upload करके तुरंत Quiz तैयार करें!</p>
+
+        <div class="form-grid">
+          <div>
+            <label>🔑 Gemini API Key</label>
+            <input id="aiApiKey" type="password" placeholder="Gemini API Key (AIzaSy...)" />
+          </div>
+          <div>
+            <label>🏫 Target Class</label>
+            <select id="aiTargetClass">
+              <option value="All Classes">All Classes</option>
+              <option value="Class 1st">Class 1st</option>
+              <option value="Class 2nd">Class 2nd</option>
+              <option value="Class 3rd">Class 3rd</option>
+              <option value="Class 4th">Class 4th</option>
+              <option value="Class 5th">Class 5th</option>
+              <option value="Class 6th">Class 6th</option>
+              <option value="Class 7th">Class 7th</option>
+              <option value="Class 8th">Class 8th</option>
+              <option value="Class 9th">Class 9th</option>
+              <option value="Class 10th">Class 10th</option>
+              <option value="Class 11th">Class 11th</option>
+              <option value="Class 12th">Class 12th</option>
+            </select>
+          </div>
+          <div>
+            <label>❓ Number of Questions</label>
+            <input id="aiNumQuestions" type="number" min="1" max="30" value="5" />
+          </div>
+        </div>
+
+        <label>📝 Topic / Instructions Prompt</label>
+        <textarea id="aiPromptText" placeholder="उदा. Class 10 Math Quadratic Equations के 5 सवाल हल व्याख्या के साथ बनाएँ..."></textarea>
+
+        <div class="file-upload-box">
+          <label>📸 Question Paper / Book की Photos (Optional, एक से ज़्यादा Photo चुन सकते हैं):</label>
+          <input id="aiImageInput" type="file" accept="image/*" multiple />
+          <div id="aiImagePreviewContainer" class="hidden ai-multi-preview"></div>
+        </div>
+
+        <button id="generateAiQuizBtn" type="button" class="ai-btn">
+          ✨ 🤖 Generate Quiz with AI
+        </button>
+
+        <div id="aiStatus" class="ai-status hidden"></div>
+      </div>
+
+      <!-- ================================================= -->
+      <!-- 📸 QUICK PHOTO QUIZ (Instant No-Typing Creator) -->
+      <!-- ================================================= -->
+      <div class="admin-card" style="border: 2px dashed #38bdf8; background: rgba(56, 189, 248, 0.06);">
+        <h3>📸 Quick Photo Quiz (बिना टाइप किए सिर्फ फोटो से Quiz बनाएँ)</h3>
+        <p class="card-desc">किताब या प्रश्नपत्र के सवालों की एक या अधिक Photos चुनें — हर Photo अपने आप एक नया सवाल बन जाएगी!</p>
+
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:12px;">
+          <input id="quickPhotoBatchInput" type="file" accept="image/*" multiple style="display:none;" />
+          <button id="quickPhotoBatchBtn" type="button" class="save-btn" style="background: linear-gradient(135deg, #0284c7, #0369a1); box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);">
+            📷 Photos चुनें और तुरंत सवाल जोड़ें
+          </button>
+          <span id="quickPhotoCountBadge" style="font-size:13px; font-weight:700; color:#38bdf8;"></span>
+        </div>
+      </div>
+
+
+
+      <!-- ================================================= -->
+      <!-- 🧠 QUIZ MANAGEMENT -->
+      <!-- ================================================= -->
+
+      <div class="section-title">
+        🧠 Quiz Management
+      </div>
+
+
+      <div class="admin-card">
+
+        <h3 id="formTitle">
+          ➕ Create New Quiz
+        </h3>
+
+
+        <input
+          id="quizTitle"
+          type="text"
+          placeholder="Quiz का नाम"
+        >
+
+
+        <div class="form-grid">
+
+          <div>
+            <label>📁 Quiz Folder</label>
+            <input id="quizFolder" type="text" placeholder="Folder Name (उदा. Maths, Science, Live Quiz)" value="Live Quizzes">
+          </div>
+
+          <div>
+            <label>🏫 Target Class</label>
+            <select id="quizClass">
+              <option value="All Classes">All Classes</option>
+              <option value="Class 1st">Class 1st</option>
+              <option value="Class 2nd">Class 2nd</option>
+              <option value="Class 3rd">Class 3rd</option>
+              <option value="Class 4th">Class 4th</option>
+              <option value="Class 5th">Class 5th</option>
+              <option value="Class 6th">Class 6th</option>
+              <option value="Class 7th">Class 7th</option>
+              <option value="Class 8th">Class 8th</option>
+              <option value="Class 9th">Class 9th</option>
+              <option value="Class 10th">Class 10th</option>
+              <option value="Class 11th">Class 11th</option>
+              <option value="Class 12th">Class 12th</option>
+            </select>
+          </div>
+
+          <div>
+            <label>⚡ Quiz Mode</label>
+            <select id="quizMode">
+              <option value="live">🟢 Scheduled Live Mode</option>
+              <option value="practice">♾️ Unlimited Practice Mode</option>
+            </select>
+          </div>
+
+          <div>
+            <label>⏱️ Question Time (Seconds)</label>
+            <input id="questionTime" type="number" min="5" value="15">
+          </div>
+
+        </div>
+
+        <!-- DATE & TIME GRID (HIDDEN FOR PRACTICE QUIZZES) -->
+        <div id="quizDateTimeGrid" class="form-grid" style="margin-top: 10px;">
+          <div>
+            <label>📅 Quiz Date</label>
+            <input id="quizDate" type="date">
+          </div>
+
+          <div>
+            <label>🟢 Start Time</label>
+            <input id="quizStart" type="time">
+          </div>
+
+          <div>
+            <label>🔴 End Time</label>
+            <input id="quizEnd" type="time">
+          </div>
+        </div>
+
+        <p id="practiceModeNote" class="practice-note hidden">
+          ♾️ Practice Mode में Date / Start / End Time की ज़रूरत नहीं है — यह Quiz हमेशा उपलब्ध रहेगा और Student कभी भी, कितनी भी बार खेल सकते हैं।
+        </p>
+
+
+        <!-- ================================================= -->
+        <!-- ❓ QUESTIONS -->
+        <!-- ================================================= -->
+
+        <h3 class="question-heading">
+          ❓ Questions & Figures
+        </h3>
+
+
+        <div id="adminQuestions">
+          <!-- Questions यहाँ आएंगे -->
+        </div>
+
+
+        <button
+          id="addQuestionBtn"
+          type="button"
+          class="add-question-btn">
+
+          ➕ Add Question
+
+        </button>
+
+
+        <div class="admin-actions">
+
+          <button
+            id="saveQuizBtn"
+            type="button"
+            class="save-btn">
+
+            💾 Save Quiz
+
+          </button>
+
+
+          <button
+            id="cancelEditBtn"
+            type="button"
+            class="cancel-btn hidden">
+
+            ❌ Cancel Edit
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- 📚 SAVED QUIZZES (FOLDER WISE) -->
+      <!-- ================================================= -->
+
+      <div class="admin-card">
+
+        <h3>
+          📁 Saved Quizzes (Folder View)
+        </h3>
+
+        <div id="savedQuizList">
+
+          <p>
+            Loading saved quizzes...
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- 🔄 RESET RESULTS -->
+      <!-- ================================================= -->
+
+      <button
+        id="resetBtn"
+        class="reset-btn"
+        type="button">
+
+        🔄 Reset Selected Quiz Results
+
+      </button>
+
+
+    </div>
+
   </div>
 
-  <!-- Quiz Selection -->
-  <div id="quiz-selection" class="quiz-container" style="display:none;">
-    <h1 class="title">Available Quizzes</h1>
-    <div id="quiz-list"></div>
+
+  <!-- ================================================= -->
+  <!-- 📑 ANSWER KEY & REVIEW MODAL -->
+  <!-- ================================================= -->
+  <div id="answerKeyModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>📑 Detailed Answer Key & Review (याद करने के लिए)</h2>
+        <button id="closeAnswerKeyBtn" type="button" class="close-modal-btn">✖</button>
+      </div>
+
+      <div id="answerKeyHeaderInfo" class="answer-key-info">
+        <!-- Student details & Score summary -->
+      </div>
+
+      <div id="answerKeyContent" class="answer-key-questions">
+        <!-- Questions breakdown -->
+      </div>
+
+      <div class="modal-footer">
+        <button id="closeAnswerKeyFooterBtn" type="button" class="save-btn">
+          ✅ Close Answer Key
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- Quiz Page -->
-  <div id="quiz-container" class="quiz-container" style="display:none;">
-    <h1 class="title">Welcome, <span id="user-name"></span>!</h1>
-    <div id="question-box" class="card"></div>
-    <div id="options-box"></div>
-    <div id="timer" class="timer"></div>
-    <div id="score-board" class="score-board">Score: 0</div>
-    <button id="next-btn" class="btn">Next</button>
-  </div>
 
-  <!-- Leaderboard -->
-  <div id="leaderboard-container" class="login-card" style="display:none;">
-    <h1 class="title">Leaderboard</h1>
-    <ul id="leaderboard-list"></ul>
-    <button id="back-to-login" class="btn">Back</button>
-  </div>
+  <!-- ================================================= -->
+  <!-- 🧠 QUIZ JS -->
+  <!-- ================================================= -->
 
-  <!-- Admin Panel -->
-  <div id="admin-container" class="login-card" style="display:none;">
-    <h1 class="title">Admin Panel</h1>
-    <h2>Add Quiz</h2>
-    <input type="text" id="new-quiz-name" placeholder="Quiz Name">
-    <input type="text" id="quiz-start" placeholder="Start (YYYY-MM-DDTHH:mm:ss)">
-    <input type="text" id="quiz-end" placeholder="End (YYYY-MM-DDTHH:mm:ss)">
-    <input type="number" id="quiz-duration" placeholder="Duration (minutes)">
-    <button id="add-quiz-btn" class="btn">Add Quiz</button>
+  <script src="quiz.js"></script>
 
-    <h2>Add Question</h2>
-    <select id="quiz-select"></select>
-    <input type="text" id="new-question" placeholder="Question">
-    <input type="text" id="option1" placeholder="Option 1">
-    <input type="text" id="option2" placeholder="Option 2">
-    <input type="text" id="option3" placeholder="Option 3">
-    <input type="text" id="option4" placeholder="Option 4">
-    <input type="text" id="correct-answer" placeholder="Correct Answer">
-    <button id="add-question-btn" class="btn">Add Question</button>
 
-    <h2>Manage</h2>
-    <button id="delete-quiz-btn" class="btn">Delete Quiz</button>
-    <button id="view-answer-key" class="btn">Answer Key</button>
-    <button id="view-results" class="btn">Results</button>
-    <button id="enable-practice" class="btn">Toggle Practice Mode</button>
-    <button id="logout-admin" class="btn">Logout</button>
-    <div id="admin-output"></div>
-  </div>
+  <!-- ================================================= -->
+  <!-- 🔥 FIREBASE MAIN JS -->
+  <!-- ================================================= -->
 
-  <script src="script.js"></script>
+  <script
+    type="module"
+    src="main.js">
+  </script>
+
 </body>
+
 </html>
